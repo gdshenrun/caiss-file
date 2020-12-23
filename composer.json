@@ -1,23 +1,35 @@
 {
-    "name": "gdshengrun/caiss-file",
-    "description": "",
-    "keywords": [
-    ],
-    "homepage": "https://github.com/gdshengrun/caiss-file.git",
+    "name": "gdshenrun/caiss-file",
+    "version": "1.0.1",
+    "type": "library",
+    "description": "文件上传管理",
+    "keywords": [ ],
+    "homepage": "https://github.com/gdshenrun/caiss-file.git",
     "license": "MIT",
     "authors": [
         {
-            "name": "",
+            "name": "appledady",
             "email": "appledady@foxmail.com",
             "homepage": "https://lara.dev",
+            "role": "Developer"
+        },
+        {
+            "name": "zhuangdebiao",
+            "email": "admin@zdb.im",
+            "homepage": "https://zdb.im/",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=7.3"
+        "php": ">=7.2",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "tencentcloud/tencentcloud-sdk-php": "^3.0"
     },
     "autoload": {
         "psr-4": {
+            "GdShenrun\\Caiss\\File\\": "src/",
+            "GdShenrun\\Caiss\\File\\Tests\\": "tests/"
         }
     },
     "autoload-dev": {
@@ -29,6 +41,7 @@
     },
     "extra": {
         "branch-alias": {
+            "dev-master": "1.0.x-dev"
         },
         "laravel": {
             "providers": [
