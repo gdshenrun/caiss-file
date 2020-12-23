@@ -1,7 +1,7 @@
 <?php
 
 
-namespace GdShengrun\Caiss\File;
+namespace GdShenrun\Caiss\File;
 
 
 class Upload
