@@ -1,0 +1,40 @@
+{
+    "name": "gdshengrun/caiss-file",
+    "description": "",
+    "keywords": [
+    ],
+    "homepage": "https://github.com/gdshengrun/caiss-file.git",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "",
+            "email": "appledady@foxmail.com",
+            "homepage": "https://lara.dev",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.3"
+    },
+    "autoload": {
+        "psr-4": {
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+        },
+        "laravel": {
+            "providers": [
+            ],
+            "aliases": {
+            }
+        }
+    }
+}
