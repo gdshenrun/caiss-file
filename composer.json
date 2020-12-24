@@ -24,7 +24,7 @@
         "php": ">=7.2",
         "ext-json": "*",
         "ext-curl": "*",
-        "tencentcloud/tencentcloud-sdk-php": "^3.0"
+        "qcloud/cos-sdk-v5": "2.*"
     },
     "autoload": {
         "psr-4": {
@@ -45,6 +45,7 @@
         },
         "laravel": {
             "providers": [
+                "GdShenrun\\File\\CosServiceProvider"
             ],
             "aliases": {
             }
