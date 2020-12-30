@@ -161,7 +161,7 @@ class UploadRepository extends AbstractUploadRepository
         }
         // 更多数据
         if ($data['IsTruncated'] === true){ // IsTruncated false,true --> NextMarker
-            $nextPage = $this->cmdDir($prefix, $data['NextMarker']);
+            $nextPage = $this->cmdDir($bucketName, $prefix, $data['NextMarker']);
             if ($nextPage) {
                 $fileList = array_merge($fileList, $nextPage['fileList']);
                 $dirList = array_merge($dirList, $nextPage['dirList']);
@@ -202,7 +202,7 @@ class UploadRepository extends AbstractUploadRepository
     // 删除文件夹
     public function cmdDeleteDir(string $bucketName, string $prefix) {
         // 列出文件夹
-        [$fileList, $dirList] = $this->cmdDir($prefix);
+        [$fileList, $dirList] = $this->cmdDir($bucketName, $prefix);
         // 删除当前文件夹 的 文件file
         $success = $this->cmdDeleteObjects($bucketName, array_map(function ($objectInfo) {
             return $objectInfo['Key'];
