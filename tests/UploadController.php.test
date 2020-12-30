@@ -1,0 +1,63 @@
+<?php
+
+
+namespace App\Http\Controllers\Api;
+
+
+use GdShenrun\Caiss\File\UploadRepository;
+use Illuminate\Http\Request;
+use Qcloud\Cos\Exception\ServiceResponseException;
+
+class UploadController extends \Illuminate\Routing\Controller
+{
+    public function upload(Request $request, UploadRepository $uploadRepository){
+
+        $bucketName = config('myqcloud.privateBucket');
+        try{
+
+            $res = [
+                'code' => 200,
+                'msg' => 'ok' ,
+                'data' => $uploadRepository->listCommand($bucketName, ''),
+            ];
+        } catch (\Exception $e) {
+            print $e;
+            $res = [
+                'code' => 400,
+                'msg' => $e->getMessage(),
+                'data' => null,
+            ];
+        }
+        return response()->json($res, 200);
+    }
+
+    public function delete(Request $request, UploadRepository $uploadRepository){
+        $privateBucket = config('myqcloud.privateBucket');
+        $publicBucket = config('myqcloud.publicBucket');
+        $dirname = config('myqcloud.resourceDir') . '/2020/';
+        try{
+            /**
+             * @var \Illuminate\Http\UploadedFile $file
+             */
+            $file = $request->file('img');
+
+            $res = [
+                'code' => 200,
+                'msg' => 'ok' ,
+                'publicFile' => $uploadRepository->uploadFile($publicBucket, $dirname, 'jpg', $file->getPathname()),
+                'privateFile' => $uploadRepository->uploadBase64Img($privateBucket, $dirname, $request->post('ba')),
+            ];
+            $res['publicUrl'] = $uploadRepository->getUrl($publicBucket, $res['publicFile']);
+            $res['privateUrl'] = $uploadRepository->getTempUrl($privateBucket, $res['privateFile']);
+        } catch (\Exception $e) {
+            print $e;
+            $res = [
+                'code' => 400,
+                'msg' => $e->getMessage(),
+                'data' => null,
+            ];
+        }
+        return response()->json($res, 200);
+    }
+
+}
