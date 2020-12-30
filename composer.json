@@ -45,7 +45,6 @@
         },
         "laravel": {
             "providers": [
-                "GdShenrun\\File\\CosServiceProvider"
             ],
             "aliases": {
             }

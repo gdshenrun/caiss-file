@@ -4,7 +4,8 @@ ALTER TABLE `caiss_custom`.`cos_bucket`
 ADD COLUMN `app_id` varchar(191) NULL DEFAULT '' COMMENT 'appId' AFTER `desc`,
 ADD COLUMN `secret_id` varchar(191) NULL DEFAULT '' COMMENT 'secretId' AFTER `app_id`,
 ADD COLUMN `secret_key` varchar(191) NULL DEFAULT '' COMMENT 'secretKey' AFTER `secret_id`,
-ADD COLUMN `cdn` varchar(191) NULL DEFAULT '' COMMENT 'CDN加速链接 https://cdn.xxx.com/' AFTER `secret_key`;
+ADD COLUMN `cdn` varchar(191) NULL DEFAULT '' COMMENT 'CDN加速链接 https://cdn.xxx.com/' AFTER `secret_key`,
+ADD COLUMN `cdn_secret` varchar(40) DEFAULT '' COMMENT 'CDN鉴权秘钥6至40位大小写字母数字' AFTER `cdn`;
 */
 
 namespace GdShenrun\Caiss\File;
@@ -198,32 +199,5 @@ abstract class AbstractUploadRepository
         return $config['cdn'] . $objectKey.'?sign='.$signature.'&t='.$time;
     }
 
-    // directory
-
-
-    // 文件夹列表
-    public function dir($bucketName, $prefix, $NextMarker = ''){
-        try {
-            $cosClient  = $this->getCosClient($bucketName);
-            // https://cloud.tencent.com/document/product/436/7734
-            $result = $cosClient->ListObjects(array(
-                'Bucket' =>  config('myqcloud.publicBucket'),
-                'Prefix' => '',
-                'Delimiter' => '/', // Contents NextMarker
-                'MaxKeys' => 1000,
-                'Marker' => $NextMarker,
-            ));
-            $data1 = $result->toArray();
-
-            /** @var Client $cosClient */
-            $cosClient = Di::getInstance()->get($bucketName);
-            $cosClient->ListObjects(array(
-                'Bucket' =>  $this->bucket,
-                'Prefix' => '中文',
-                'Delimiter' => '/'));
-        } catch (ServiceResponseException $e) {
-            throw new \Exception('获取失败,原因是:'.$e->getMessage());
-        }
-    }
 
 }
