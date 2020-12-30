@@ -1,6 +1,6 @@
 {
     "name": "gdshenrun/caiss-file",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "type": "library",
     "description": "文件上传管理",
     "keywords": [ ],
